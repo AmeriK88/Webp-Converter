@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to WebP Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>WebP-FILECon</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/convert" method="post" enctype="multipart/form-data" id="upload-form">
+        <div class="form-group">
+            <label for="input-images">Choose images:</label>
+            <input type="file" name="input_images" id="input-images" accept="image/*" multiple required>
+        </div>
+        <div class="form-group">
+            <label for="output-prefix">Output image prefix:</label>
+            <input type="text" name="output_prefix" id="output-prefix" placeholder="Output image prefix" required>
+        </div>
+        <button type="submit" id="convert-btn">Convert to WebP</button>
+    </form>
+
+    <div class="preview" id="preview-section"></div>
+    <div class="converted-images" id="converted-images-section"></div>
+</div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
