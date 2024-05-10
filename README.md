@@ -37,5 +37,8 @@ José Félix Gordo
 
 ## Licencia
 
-Este proyecto está bajo la [Licencia MIT]((https://opensource.org/license/mit)).
+## Licencia
+
+Este proyecto está bajo la [Licencia MIT](https://opensource.org/license/mit).
+
 
