@@ -32,10 +32,7 @@ Este proyecto es una aplicación web desarrollada con Flask que permite a los us
 - PIL (Python Imaging Library)
 
 ## Autor
-
 José Félix Gordo
-
-## Licencia
 
 ## Licencia
 
