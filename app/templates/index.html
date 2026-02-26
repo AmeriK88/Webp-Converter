@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="es" class="scroll-smooth">
 <head>
   <!-- Meta básicos -->
   <meta charset="UTF-8" />
@@ -12,12 +12,8 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',          // permite alternar tema añadiendo 'class'
-      theme: {
-        extend: {
-          /* aquí podrías añadir colores o fuentes custom si quieres */
-        }
-      }
+      darkMode: 'class',
+      theme: { extend: {} }
     };
   </script>
 
@@ -25,10 +21,8 @@
   <script defer src="https://unpkg.com/lucide@latest"></script>
 
   <!-- 3. Tu CSS propio (después de Tailwind) con busteo de caché -->
-  <link rel="stylesheet"
-        href="{{ url_for('static', filename='styles.css') }}?v={{ ts }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v={{ ts }}" />
 </head>
-
 
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex flex-col">
 
@@ -95,18 +89,16 @@
     </div>
   </main>
 
-  <!-- ── Flash messages to JS ── -->
-<script>
-  window.flashedMessages = [
-    {% for c,m in get_flashed_messages(with_categories=true) %}
-      { category: "{{ c }}", message: "{{ m }}" },
-    {% endfor %}
-  ];
-</script>
-<script src="{{ url_for('static', filename='script.js') }}?v={{ ts }}"></script>
-<script>lucide.createIcons();</script>
+  <!-- ── Flash messages to JS (safe, sin comas colgantes) ── -->
+  <script>
+    window.flashedMessages = {{ get_flashed_messages(with_categories=true) | tojson }};
+  </script>
+
   <!-- Main script -->
   <script src="{{ url_for('static', filename='script.js') }}?v={{ ts }}"></script>
-  <script>lucide.createIcons();</script>
+  <script>
+    // Por si el script tarda o Lucide carga después:
+    if (window.lucide) lucide.createIcons();
+  </script>
 </body>
 </html>

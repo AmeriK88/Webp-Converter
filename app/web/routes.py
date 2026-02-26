@@ -7,6 +7,7 @@ from datetime import datetime
 from . import web_bp
 from app.services.image_service import ImageService
 from app.utils.files import get_safe_filename
+from uuid import uuid4
 
 
 @web_bp.route("/")
@@ -58,7 +59,7 @@ def convert():
             return redirect(url_for("web.index"))
         
         # Generate safe output filename
-        out_name = f"{output_prefix}_{idx}.webp"
+        out_name = f"{output_prefix}_{uuid4().hex[:8]}.webp"
         
         # Convert image
         success, message = image_service.convert_to_webp(in_img, out_name)
@@ -72,7 +73,8 @@ def convert():
     
     # Flash results
     if converted_urls:
-        flash("|".join(converted_urls), "converted")
+        for url in converted_urls:
+            flash(url, "converted_url")
         flash(f"{idx} image(s) successfully converted", "success")
     
     return redirect(url_for("web.index"))
